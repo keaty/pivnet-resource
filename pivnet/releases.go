@@ -14,14 +14,15 @@ type createReleaseBody struct {
 }
 
 type CreateReleaseConfig struct {
-	ProductSlug     string
-	ProductVersion  string
-	ReleaseType     string
-	ReleaseDate     string
-	EulaSlug        string
-	Description     string
-	ReleaseNotesURL string
-	ECCN            string
+	ProductSlug      string
+	ProductVersion   string
+	ReleaseType      string
+	ReleaseDate      string
+	EulaSlug         string
+	Description      string
+	ReleaseNotesURL  string
+	ECCN             string
+	LicenseException string
 }
 
 func (c client) ReleasesForProductSlug(productSlug string) ([]Release, error) {
@@ -73,13 +74,14 @@ func (c client) CreateRelease(config CreateReleaseConfig) (Release, error) {
 			Eula: &Eula{
 				Slug: config.EulaSlug,
 			},
-			OSSCompliant:    "confirm",
-			ReleaseDate:     config.ReleaseDate,
-			ReleaseType:     config.ReleaseType,
-			Version:         config.ProductVersion,
-			Description:     config.Description,
-			ReleaseNotesURL: config.ReleaseNotesURL,
-			ECCN:            config.ECCN,
+			OSSCompliant:     "confirm",
+			ReleaseDate:      config.ReleaseDate,
+			ReleaseType:      config.ReleaseType,
+			Version:          config.ProductVersion,
+			Description:      config.Description,
+			ReleaseNotesURL:  config.ReleaseNotesURL,
+			ECCN:             config.ECCN,
+			LicenseException: config.LicenseException,
 		},
 	}
 

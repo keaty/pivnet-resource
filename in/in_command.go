@@ -215,6 +215,7 @@ func (c *InCommand) Run(input concourse.InRequest) (concourse.InResponse, error)
 		{Name: "description", Value: release.Description},
 		{Name: "release_notes_url", Value: release.ReleaseNotesURL},
 		{Name: "eccn", Value: release.ECCN},
+		{Name: "license_exception", Value: release.LicenseException},
 	}
 
 	if release.Eula != nil {

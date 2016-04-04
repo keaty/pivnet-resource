@@ -371,6 +371,58 @@ var _ = Describe("PivnetClient - product files", func() {
 					})
 				})
 			})
+
+			Describe("optional License Exception field", func() {
+				var (
+					licenseException string
+				)
+
+				Context("when the optional License Exception field is present", func() {
+					BeforeEach(func() {
+						licenseException = "some License Exception"
+
+						createReleaseConfig.LicenseException = licenseException
+						expectedRequestBody.Release.LicenseException = licenseException
+					})
+
+					It("creates the release with the License Exception field", func() {
+						server.AppendHandlers(
+							ghttp.CombineHandlers(
+								ghttp.VerifyRequest("POST", apiPrefix+"/products/"+productSlug+"/releases"),
+								ghttp.VerifyJSONRepresenting(&expectedRequestBody),
+								ghttp.RespondWith(http.StatusCreated, validResponse),
+							),
+						)
+
+						release, err := client.CreateRelease(createReleaseConfig)
+						Expect(err).NotTo(HaveOccurred())
+						Expect(release.Version).To(Equal(productVersion))
+					})
+				})
+
+				Context("when the optional LicenseException field is not present", func() {
+					BeforeEach(func() {
+						licenseException = ""
+
+						createReleaseConfig.LicenseException = licenseException
+						expectedRequestBody.Release.LicenseException = licenseException
+					})
+
+					It("creates the release with an empty License Exception field", func() {
+						server.AppendHandlers(
+							ghttp.CombineHandlers(
+								ghttp.VerifyRequest("POST", apiPrefix+"/products/"+productSlug+"/releases"),
+								ghttp.VerifyJSONRepresenting(&expectedRequestBody),
+								ghttp.RespondWith(http.StatusCreated, validResponse),
+							),
+						)
+
+						release, err := client.CreateRelease(createReleaseConfig)
+						Expect(err).NotTo(HaveOccurred())
+						Expect(release.Version).To(Equal(productVersion))
+					})
+				})
+			})
 		})
 
 		Context("when the server responds with a non-201 status code", func() {

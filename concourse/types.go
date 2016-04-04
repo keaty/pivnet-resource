@@ -48,18 +48,19 @@ type OutRequest struct {
 }
 
 type OutParams struct {
-	FileGlob            string `json:"file_glob"`
-	FilepathPrefix      string `json:"s3_filepath_prefix"`
-	VersionFile         string `json:"version_file"`
-	ReleaseTypeFile     string `json:"release_type_file"`
-	ReleaseDateFile     string `json:"release_date_file"`
-	EulaSlugFile        string `json:"eula_slug_file"`
-	DescriptionFile     string `json:"description_file"`
-	ReleaseNotesURLFile string `json:"release_notes_url_file"`
-	ECCNFile            string `json:"eccn_file"`
-	AvailabilityFile    string `json:"availability_file"`
-	UserGroupIDsFile    string `json:"user_group_ids_file"`
-	MetadataFile        string `json:"metadata_file"`
+	FileGlob             string `json:"file_glob"`
+	FilepathPrefix       string `json:"s3_filepath_prefix"`
+	VersionFile          string `json:"version_file"`
+	ReleaseTypeFile      string `json:"release_type_file"`
+	ReleaseDateFile      string `json:"release_date_file"`
+	EulaSlugFile         string `json:"eula_slug_file"`
+	DescriptionFile      string `json:"description_file"`
+	ReleaseNotesURLFile  string `json:"release_notes_url_file"`
+	ECCNFile             string `json:"eccn_file"`
+	AvailabilityFile     string `json:"availability_file"`
+	UserGroupIDsFile     string `json:"user_group_ids_file"`
+	MetadataFile         string `json:"metadata_file"`
+	LicenseExceptionFile string `json:"license_exception_file"`
 }
 
 type OutResponse struct {

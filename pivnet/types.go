@@ -13,17 +13,18 @@ type ProductFileResponse struct {
 }
 
 type Release struct {
-	ID              int    `json:"id,omitempty"`
-	Availability    string `json:"availability,omitempty"`
-	Eula            *Eula  `json:"eula,omitempty"`
-	OSSCompliant    string `json:"oss_compliant,omitempty"`
-	ReleaseDate     string `json:"release_date,omitempty"`
-	ReleaseType     string `json:"release_type,omitempty"`
-	Version         string `json:"version,omitempty"`
-	Links           *Links `json:"_links,omitempty"`
-	Description     string `json:"description,omitempty"`
-	ReleaseNotesURL string `json:"release_notes_url,omitempty"`
-	ECCN            string `json:"eccn,omitempty"`
+	ID               int    `json:"id,omitempty"`
+	Availability     string `json:"availability,omitempty"`
+	Eula             *Eula  `json:"eula,omitempty"`
+	OSSCompliant     string `json:"oss_compliant,omitempty"`
+	ReleaseDate      string `json:"release_date,omitempty"`
+	ReleaseType      string `json:"release_type,omitempty"`
+	Version          string `json:"version,omitempty"`
+	Links            *Links `json:"_links,omitempty"`
+	Description      string `json:"description,omitempty"`
+	ReleaseNotesURL  string `json:"release_notes_url,omitempty"`
+	ECCN             string `json:"eccn,omitempty"`
+	LicenseException string `json:"license_exception,omitempty"`
 }
 
 type Eula struct {

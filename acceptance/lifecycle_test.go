@@ -40,6 +40,9 @@ var _ = Describe("Lifecycle test", func() {
 		eccnFile = "eccn"
 		eccn     = "5D002"
 
+		licenseExceptionFile = "license_exception"
+		licenseException     = "ENC Unrestricted"
+
 		filePrefix = "pivnet-resource-test-file"
 
 		command       *exec.Cmd
@@ -107,6 +110,13 @@ var _ = Describe("Lifecycle test", func() {
 			os.ModePerm)
 		Expect(err).ShouldNot(HaveOccurred())
 
+		By("Writing license exception to file")
+		err = ioutil.WriteFile(
+			filepath.Join(rootDir, licenseExceptionFile),
+			[]byte(licenseException),
+			os.ModePerm)
+		Expect(err).ShouldNot(HaveOccurred())
+
 		By("Creating command object")
 		command = exec.Command(outPath, rootDir)
 
@@ -122,15 +132,16 @@ var _ = Describe("Lifecycle test", func() {
 				Region:          pivnetRegion,
 			},
 			Params: concourse.OutParams{
-				FileGlob:            "*",
-				FilepathPrefix:      s3FilepathPrefix,
-				VersionFile:         productVersionFile,
-				ReleaseTypeFile:     releaseTypeFile,
-				ReleaseDateFile:     releaseDateFile,
-				EulaSlugFile:        eulaSlugFile,
-				DescriptionFile:     descriptionFile,
-				ReleaseNotesURLFile: releaseNotesURLFile,
-				ECCNFile:            eccnFile,
+				FileGlob:             "*",
+				FilepathPrefix:       s3FilepathPrefix,
+				VersionFile:          productVersionFile,
+				ReleaseTypeFile:      releaseTypeFile,
+				ReleaseDateFile:      releaseDateFile,
+				EulaSlugFile:         eulaSlugFile,
+				DescriptionFile:      descriptionFile,
+				ReleaseNotesURLFile:  releaseNotesURLFile,
+				ECCNFile:             eccnFile,
+				LicenseExceptionFile: licenseExceptionFile,
 			},
 		}
 

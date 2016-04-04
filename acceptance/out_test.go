@@ -43,6 +43,9 @@ var _ = Describe("Out", func() {
 		eccnFile = "eccn"
 		eccn     = "5D002"
 
+		licenseExceptionFile = "license_exception"
+		licenseException     = "ENC Unrestricted"
+
 		command       *exec.Cmd
 		stdinContents []byte
 		outRequest    concourse.OutRequest
@@ -108,6 +111,13 @@ var _ = Describe("Out", func() {
 			os.ModePerm)
 		Expect(err).ShouldNot(HaveOccurred())
 
+		By("Writing license exception to file")
+		err = ioutil.WriteFile(
+			filepath.Join(rootDir, licenseExceptionFile),
+			[]byte(licenseException),
+			os.ModePerm)
+		Expect(err).ShouldNot(HaveOccurred())
+
 		By("Creating command object")
 		command = exec.Command(outPath, rootDir)
 
@@ -123,15 +133,16 @@ var _ = Describe("Out", func() {
 				Region:          pivnetRegion,
 			},
 			Params: concourse.OutParams{
-				FileGlob:            "",
-				FilepathPrefix:      "",
-				VersionFile:         productVersionFile,
-				ReleaseTypeFile:     releaseTypeFile,
-				ReleaseDateFile:     releaseDateFile,
-				EulaSlugFile:        eulaSlugFile,
-				DescriptionFile:     descriptionFile,
-				ReleaseNotesURLFile: releaseNotesURLFile,
-				ECCNFile:            eccnFile,
+				FileGlob:             "",
+				FilepathPrefix:       "",
+				VersionFile:          productVersionFile,
+				ReleaseTypeFile:      releaseTypeFile,
+				ReleaseDateFile:      releaseDateFile,
+				EulaSlugFile:         eulaSlugFile,
+				DescriptionFile:      descriptionFile,
+				ReleaseNotesURLFile:  releaseNotesURLFile,
+				ECCNFile:             eccnFile,
+				LicenseExceptionFile: licenseExceptionFile,
 			},
 		}
 
@@ -203,6 +214,7 @@ var _ = Describe("Out", func() {
 			Expect(release.Description).To(Equal(description))
 			Expect(release.ReleaseNotesURL).To(Equal(releaseNotesURL))
 			Expect(release.ECCN).To(Equal(eccn))
+			Expect(release.LicenseException).To(Equal(licenseException))
 
 			By("Validing the returned metadata")
 			metadataReleaseType, err := metadataValueForKey(response.Metadata, "release_type")
@@ -224,6 +236,10 @@ var _ = Describe("Out", func() {
 			metadataECCN, err := metadataValueForKey(response.Metadata, "eccn")
 			Expect(err).ShouldNot(HaveOccurred())
 			Expect(metadataECCN).To(Equal(eccn))
+
+			metadataLicenseException, err := metadataValueForKey(response.Metadata, "license_exception")
+			Expect(err).ShouldNot(HaveOccurred())
+			Expect(metadataLicenseException).To(Equal(licenseException))
 		})
 
 		Context("When the availability is set to Selected User Groups Only", func() {

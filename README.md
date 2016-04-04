@@ -191,6 +191,8 @@ release creation will fail.
 
 * `eccn_file`: *Optional.* File containing the Export Control Classification Number (ECCN).
 
+* `license_exception_file`: *Optional.* File containing the License Exception text.
+
 * `availability`: *Optional.* File containing the availability.
   Will be read to determine the availability. Valid file contents are:
   - Admins Only

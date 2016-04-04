@@ -147,14 +147,15 @@ func (c *OutCommand) Run(input concourse.OutRequest) (concourse.OutResponse, err
 	}
 
 	config := pivnet.CreateReleaseConfig{
-		ProductSlug:     productSlug,
-		ReleaseType:     readStringContents(c.sourcesDir, input.Params.ReleaseTypeFile),
-		EulaSlug:        readStringContents(c.sourcesDir, input.Params.EulaSlugFile),
-		ProductVersion:  productVersion,
-		Description:     readStringContents(c.sourcesDir, input.Params.DescriptionFile),
-		ReleaseNotesURL: readStringContents(c.sourcesDir, input.Params.ReleaseNotesURLFile),
-		ECCN:            readStringContents(c.sourcesDir, input.Params.ECCNFile),
-		ReleaseDate:     readStringContents(c.sourcesDir, input.Params.ReleaseDateFile),
+		ProductSlug:      productSlug,
+		ReleaseType:      readStringContents(c.sourcesDir, input.Params.ReleaseTypeFile),
+		EulaSlug:         readStringContents(c.sourcesDir, input.Params.EulaSlugFile),
+		ProductVersion:   productVersion,
+		Description:      readStringContents(c.sourcesDir, input.Params.DescriptionFile),
+		ReleaseNotesURL:  readStringContents(c.sourcesDir, input.Params.ReleaseNotesURLFile),
+		ECCN:             readStringContents(c.sourcesDir, input.Params.ECCNFile),
+		LicenseException: readStringContents(c.sourcesDir, input.Params.LicenseExceptionFile),
+		ReleaseDate:      readStringContents(c.sourcesDir, input.Params.ReleaseDateFile),
 	}
 
 	release, err := pivnetClient.CreateRelease(config)
@@ -327,6 +328,7 @@ func (c *OutCommand) Run(input concourse.OutRequest) (concourse.OutResponse, err
 			{Name: "description", Value: release.Description},
 			{Name: "release_notes_url", Value: release.ReleaseNotesURL},
 			{Name: "eccn", Value: release.ECCN},
+			{Name: "license_exception", Value: release.LicenseException},
 			{Name: "eula_slug", Value: release.Eula.Slug},
 			{Name: "availability", Value: release.Availability},
 		},
